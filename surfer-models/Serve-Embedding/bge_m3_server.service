@@ -1,0 +1,18 @@
+[Unit]
+Description=VLLM BGE-M3 OpenAI API Server
+After=network-online.target
+PartOf=surfox-nlp-models.target
+
+[Service]
+Type=simple
+User=waqas
+WorkingDirectory=/home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Embedding
+ExecStart=/usr/bin/python3 /home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Embedding/run_bge_m3_server.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

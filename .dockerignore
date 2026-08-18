@@ -1,0 +1,20 @@
+node_modules
+frontend/node_modules
+frontend/build
+frontend/.codex
+frontend/.agents
+backend/.venv
+backend/__pycache__
+backend/results
+backend/uploads
+backend/json outputs
+backend/google_serp_session
+backend/google_serp_session_chromium
+backend/google_serp_session_firefox
+google_serp_session
+__pycache__
+surfer-models
+.git
+.env
+backend/.env
+time-track.csv

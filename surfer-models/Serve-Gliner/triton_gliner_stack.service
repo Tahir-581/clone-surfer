@@ -1,0 +1,20 @@
+[Unit]
+Description=Triton GLiNER stack (Docker build, Triton server, FastAPI)
+After=network-online.target docker.service
+Wants=network-online.target docker.service
+PartOf=surfox-nlp-models.target
+
+[Service]
+Type=simple
+User=waqas
+WorkingDirectory=/home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Gliner
+ExecStart=/usr/bin/python3 /home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Gliner/run_triton_gliner_stack.py
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Gliner/triton_gliner_bge/.env
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

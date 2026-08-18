@@ -1,0 +1,43 @@
+name: "gliner_ner"
+backend: "python"
+
+max_batch_size: 8
+
+input [
+  {
+    name: "text"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "labels"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "threshold"
+    data_type: TYPE_FP32
+    dims: [ 1 ]
+  }
+]
+
+output [
+  {
+    name: "entities"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 2, 4, 8 ]
+  max_queue_delay_microseconds: 2000
+}
+
+instance_group [
+  {
+    kind: KIND_GPU
+    count: 1
+    gpus: [ 0 ]
+  }
+]

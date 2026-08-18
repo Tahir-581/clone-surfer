@@ -1,0 +1,8 @@
+[Unit]
+Description=Surfox NLP Models (Embedding, GLiNER, Reranker)
+Documentation=file:///home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models
+Wants=bge_m3_server.service triton_gliner_stack.service bge-reranker.service
+After=network-online.target docker.service
+
+[Install]
+WantedBy=multi-user.target

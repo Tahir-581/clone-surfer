@@ -1,0 +1,38 @@
+name: "bge_embeddings"
+backend: "python"
+
+max_batch_size: 64
+
+input [
+  {
+    name: "text"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  },
+  {
+    name: "is_query"
+    data_type: TYPE_BOOL
+    dims: [ 1 ]
+  }
+]
+
+output [
+  {
+    name: "embeddings"
+    data_type: TYPE_FP32
+    dims: [ 1024 ]
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [ 8, 16, 32, 64 ]
+  max_queue_delay_microseconds: 2000
+}
+
+instance_group [
+  {
+    kind: KIND_GPU
+    count: 2
+    gpus: [ 0 ]
+  }
+]

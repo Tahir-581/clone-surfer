@@ -1,0 +1,4 @@
+# NVIDIA Triton Inference Server Python client (HTTP + async).
+# NOT the same as the PyTorch "triton" wheel.
+tritonclient[http]>=2.40
+numpy>=1.20

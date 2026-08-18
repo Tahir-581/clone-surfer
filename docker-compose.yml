@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: serfox_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d serfox_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8010:8010"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      BACKEND_PORT: 8010
+      PORT: 8010
+      FRONTEND_DIR: /app/frontend/build
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: serfox_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - ./backend/results:/app/backend/results
+      - ./backend/uploads:/app/backend/uploads
+      - ./backend/json outputs:/app/backend/json outputs
+      - ./time-track.csv:/app/time-track.csv
+
+volumes:
+  postgres_data:

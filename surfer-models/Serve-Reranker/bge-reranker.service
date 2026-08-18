@@ -1,0 +1,18 @@
+[Unit]
+Description=BGE Reranker vLLM API Service
+After=network-online.target
+PartOf=surfox-nlp-models.target
+
+[Service]
+Type=simple
+User=waqas
+WorkingDirectory=/home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Reranker
+ExecStart=/home/waqas/Waqas/Devs/Shamir/serfox/surfox-nlp/surfer-models/Serve-Reranker/bge-reranker
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
